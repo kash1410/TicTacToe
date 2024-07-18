@@ -84,22 +84,10 @@ def takeCommand():
         return "None"
      
     return query
-  
-def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-     
-    # Enable low security in gmail
-    server.login('your email id', 'your email password')
-    server.sendmail('your email id', to, content)
-    server.close()
 
 if __name__ == '__main__':
     clear = lambda: os.system('cls')
-     
-    # This Function will clean any
-    # command before execution of this python file
+
     clear()
     wishMe()
     username()
@@ -108,10 +96,6 @@ if __name__ == '__main__':
          
         query = takeCommand().lower()
          
-        # All the commands said by user will be 
-        # stored here in 'query' and will be
-        # converted to lower case for easily 
-        # recognition of command
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
             query = query.replace("wikipedia", "")
@@ -133,20 +117,8 @@ if __name__ == '__main__':
             webbrowser.open("stackoverflow.com")   
  
         elif 'the time' in query:
-            strTime = datetime.datetime.now().strftime("% H:% M:% S")    
-            speak(f"the time is {strTime}")
- 
-        elif 'send a mail' in query:
-            try:
-                speak("What should I say?")
-                content = takeCommand()
-                speak("whome should i send")
-                to = input()    
-                sendEmail(to, content)
-                speak("Email has been sent !")
-            except Exception as e:
-                print(e)
-                speak("I am not able to send this email")
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            speak("the time is"+ strTime)
  
         elif 'how are you' in query:
             speak("I am fine, Thank you")
@@ -318,7 +290,6 @@ if __name__ == '__main__':
              
             wishMe()
             speak("kashu in your service Mister")
-            speak(assname)
  
         elif "weather" in query:
              
@@ -381,7 +352,6 @@ if __name__ == '__main__':
         elif "what is" in query or "who is" in query:
              
             # Use the same API key 
-            # that we have generated earlier
             client = wolframalpha.Client("API_ID")
             res = client.query(query)
              
